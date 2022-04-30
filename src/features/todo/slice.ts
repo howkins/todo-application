@@ -51,10 +51,15 @@ export const todoSlice = createSlice({
             state.list = state.list.filter(data => data.id != action.payload.id).sort(completed)
             state.loading = true
         },
+
+        orderByCompleted: (state) => {
+            state.list = state.list.filter(data => data.completed).sort(completed)
+            state.loading = true
+        }
     },
 });
 
-export const { setAll, appendOne, updateOne, destroyOne } = todoSlice.actions;
+export const { setAll, appendOne, updateOne, destroyOne, orderByCompleted } = todoSlice.actions;
 
 
 export default todoSlice.reducer;

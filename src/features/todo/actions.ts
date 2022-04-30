@@ -1,5 +1,5 @@
 import {api} from '../../app/api'
-import {setAll, appendOne, updateOne, destroyOne, ResponseData, ResponseCompletedData, ResponseNameData} from './slice'
+import {setAll, appendOne, updateOne, destroyOne, orderByCompleted, ResponseCompletedData, ResponseNameData} from './slice'
 
 export function list(): any {
     return async (dispatch: any): Promise<any> => {
@@ -46,9 +46,20 @@ export function destroy(id:number): any {
     }
 }
 
+export function sotrtByCompleted(): any {
+    return async (dispatch: any): Promise<any> => {
+        try {
+            await dispatch(orderByCompleted())
+        } catch (e) {
+            return console.error(e)
+        }
+    }
+}
+
 export default {
     list,
     create,
     update,
-    destroy
+    destroy,
+    sotrtByCompleted
 }

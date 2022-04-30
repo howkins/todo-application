@@ -1,6 +1,6 @@
 import { useState, useEffect, memo } from 'react';
 import { useAppDispatch } from '../../app/hooks';
-import { list, create, update, destroy } from './actions';
+import { list, create, update, destroy, sotrtByCompleted } from './actions';
 import { useSelector } from 'react-redux';
 import { ReduxState } from '../../app/store';
 
@@ -42,11 +42,29 @@ export default memo(() => {
         })()
     }
 
+    const handleAllTasks = () => {
+        (async () => {
+            await dispatch(list())
+        })()
+        
+    }
+    const handleAllCompletedTasks = () => {
+        (async () => {
+            await dispatch(sotrtByCompleted())
+        })()
+    }
+
     const completedTasks = todos.list.filter(todo => todo.completed).length
 
     return (
         <div className='container-sm'>
             <h1 className="text-center">THINGS TO DO:</h1>
+            <div className="d-flex justify-content-end">
+                <div className="btn-group" role="group" aria-label="Basic example">
+                    <button type="button" onClick={handleAllTasks} className="btn btn-primary">All</button>
+                    <button type="button" onClick={handleAllCompletedTasks} className="btn btn-secondary">Completed</button>
+                </div>
+            </div>
             <hr />
             <div className="list-group">
                 {todos.list.map(todo => 
